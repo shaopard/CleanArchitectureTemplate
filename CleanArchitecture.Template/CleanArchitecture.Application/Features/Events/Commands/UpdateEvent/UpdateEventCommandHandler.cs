@@ -22,7 +22,7 @@ namespace CleanArchitecture.Application.Features.Events.Commands.UpdateEvent
             _eventRepository = eventRepository;
         }
 
-        public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
             var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
 
@@ -46,8 +46,6 @@ namespace CleanArchitecture.Application.Features.Events.Commands.UpdateEvent
             _mapper.Map(request, eventToUpdate, typeof(UpdateEventCommand), typeof(Event));
 
             await _eventRepository.UpdateAsync(eventToUpdate);
-
-            return Unit.Value;
         }
     }
 }
